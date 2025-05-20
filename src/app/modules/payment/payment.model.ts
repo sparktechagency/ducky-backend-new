@@ -46,30 +46,5 @@ const paymentSchema = new Schema<TPayment>(
 
 
 
-// paymentSchema.pre('validate', function (next) {
-//   if (this.method === 'bank') {
-//     if (
-//       !this.bankDetails ||
-//       !this.bankDetails.accountNumber ||
-//       !this.bankDetails.accountName ||
-//       !this.bankDetails.bankName
-//     ) {
-//       return next(new Error('Bank details are required for bank withdrawals.'));
-//     }
-//   } else if (this.method === 'paypal_pay') {
-//     if (!this.paypalPayDetails || !this.paypalPayDetails.paypalId) {
-//       return next(
-//         new Error('GooglePay details are required for Google withdrawals.'),
-//       );
-//     }
-//   } else if (this.method === 'apple_pay') {
-//     if (!this.applePayDetails || !this.applePayDetails.appleId) {
-//       return next(
-//         new Error('ApplePay details are required for Apple withdrawals.'),
-//       );
-//     }
-//   }
-//   next();
-// });
 
 export const Payment = model<TPayment>('Payment', paymentSchema);
