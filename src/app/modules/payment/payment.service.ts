@@ -780,15 +780,15 @@ const automaticCompletePayment = async (event: Stripe.Event): Promise<void> => {
             }
 
 
-        // const deletedCartProducts = await Promise.all(
-        //   cartIds.map(async (cartProductId: any) => {
-        //     const isDelete =
-        //       await Cart.findByIdAndDelete(cartProductId);
-        //     if (!isDelete) {
-        //       throw new AppError(404, 'Failed to delete cart product');
-        //     }
-        //   }),
-        // );
+        const deletedCartProducts = await Promise.all(
+          cartIds.map(async (cartProductId: any) => {
+            const isDelete =
+              await Cart.findByIdAndDelete(cartProductId);
+            if (!isDelete) {
+              throw new AppError(404, 'Failed to delete cart product');
+            }
+          }),
+        );
 
         const notificationData = {
           userId: userId,
