@@ -86,7 +86,12 @@ const getSingleReadNotification = async (id: string, userId: string) => {
     throw new AppError(500, 'Error deleting SaveStory!');
   }
 
-  return result;
+  const unReadNotification = await Notification.countDocuments({
+    userId,
+    isRead: false,
+  });
+
+  return {result, unReadCount: unReadNotification};
 };
 
 const getAllReadNotification = async (userId: string) => {
@@ -101,7 +106,12 @@ const getAllReadNotification = async (userId: string) => {
     { $set: { isRead: true } },
   );
 
-  return result;
+  const unReadNotification = await Notification.countDocuments({
+    userId,
+    isRead: false,
+  });
+
+  return {result, unReadCount: unReadNotification};
 };
 
 const deleteNotification = async (id: string, userId: string) => {
