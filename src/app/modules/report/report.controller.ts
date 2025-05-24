@@ -4,7 +4,10 @@ import httpStatus from 'http-status';
 import { reportService } from './report.service';
 
 const createReport = catchAsync(async (req, res) => {
+  const { userId } = req.user;
   const payload = req.body;
+
+  payload.userId = userId;
 
   const result = await reportService.createReport(payload);
 
@@ -17,7 +20,7 @@ const createReport = catchAsync(async (req, res) => {
 });
 
 const getAllReport = catchAsync(async (req, res) => {
-  const { meta, result } = await reportService.getAllReportQuery(req.query);
+  const { meta, result } = await reportService.getAllReportQuery(req.query); 
 
   sendResponse(res, {
     success: true,

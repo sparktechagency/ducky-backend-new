@@ -17,7 +17,8 @@ const createReport = async (payload: TReport) => {
 };
 
 const getAllReportQuery = async (query: Record<string, unknown>) => {
-  const ReportQuery = new QueryBuilder(Report.find(), query)
+  const ReportQuery = new QueryBuilder(Report.find().populate('userId'), query)
+
     .search([])
     .filter()
     .sort()
