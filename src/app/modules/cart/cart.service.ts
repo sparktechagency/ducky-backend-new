@@ -24,7 +24,7 @@ const createCartService = async (payload: TCart) => {
 
       const availableStock = Number(isProductExist.availableStock);
 
-      if (availableStock < 1) {
+      if (availableStock < isExistCartProduct.quantity + 1) {
         throw new AppError(400, 'Product is out of stock');
       }
 
