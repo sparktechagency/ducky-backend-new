@@ -36,6 +36,16 @@ const productSchema = new Schema<TProduct>(
         message: 'At least one image is required',
       },
     },
+    lastImage: {
+      type: String,
+      required: [true, 'Images are required'],
+      validate: {
+        validator: function (value: string[]) {
+          return value && value.length > 0;
+        },
+        message: 'At least one image is required',
+      },
+    },
     height: { type: String, required: true },
     width: { type: String, required: true },
     length: { type: String, required: true },

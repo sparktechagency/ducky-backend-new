@@ -12,10 +12,11 @@ const productRouter = express.Router();
 productRouter
   .post(
     '/create-product',
-    auth(USER_ROLE.ADMIN, USER_ROLE.SUB_ADMIN),
+    // auth(USER_ROLE.ADMIN, USER_ROLE.SUB_ADMIN),
     upload.fields([
       { name: 'images', maxCount: 10 },
       { name: 'coverImage', maxCount: 1 },
+      { name: 'lastImage', maxCount: 1 },
     ]),
     // validateRequest(videoValidation.VideoSchema),
     productController.createProduct,
@@ -29,6 +30,7 @@ productRouter
     upload.fields([
       { name: 'images', maxCount: 10 },
       { name: 'coverImage', maxCount: 1 },
+      { name: 'lastImage', maxCount: 1 },
     ]),
     productController.updateSingleProduct,
   )

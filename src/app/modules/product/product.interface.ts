@@ -14,8 +14,9 @@ export  type TProduct = {
   weight: string;
   images: [string];
   coverImage: string;
+  lastImage: string;
   height: string;
   width: string;
   length: string;
-  isDeleted:boolean;
+  isDeleted: boolean;
 };

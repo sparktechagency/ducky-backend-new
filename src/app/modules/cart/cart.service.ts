@@ -19,13 +19,31 @@ const createCartService = async (payload: TCart) => {
   }
 
   const isExistCartProduct = await Cart.findOne({productId:payload.productId, userId:payload.userId});
+  console.log('===isExistCartProduct', isExistCartProduct);
     if (isExistCartProduct) {
-      throw new AppError(400, 'This Product is already Exist!!');
+
+      const availableStock = Number(isProductExist.availableStock);
+
+      if (availableStock < 1) {
+        throw new AppError(400, 'Product is out of stock');
+      }
+
+      const result = await Cart.findOneAndUpdate(
+        { productId: payload.productId, userId: payload.userId },
+        { $inc: { quantity: 1 } },
+        { new: true }, 
+      );
+
+      return result;
+
+    }else{
+      const result = await Cart.create(payload);
+
+      return result;
+
     }
 
-  const result = await Cart.create(payload);
-
-  return result;
+ 
 };
 
 const getAllCartQuery = async (

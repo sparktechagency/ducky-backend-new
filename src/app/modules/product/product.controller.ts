@@ -6,7 +6,6 @@ import Product from './product.model';
 import AppError from '../../error/AppError';
 
 const createProduct = catchAsync(async (req, res) => {
-
   console.log('hit hoise');
   const productData = req.body;
   const isExist = await Product.findOne({
@@ -20,7 +19,6 @@ const createProduct = catchAsync(async (req, res) => {
     [fieldname: string]: Express.Multer.File[];
   };
 
-  
   if (imageFiles?.images && imageFiles.images.length > 0) {
     productData.images = imageFiles.images.map((file) =>
       file.path.replace(/^public[\\/]/, ''),
@@ -32,9 +30,13 @@ const createProduct = catchAsync(async (req, res) => {
       /^public[\\/]/,
       '',
     );
-    
   }
-
+  if (imageFiles?.lastImage && imageFiles.lastImage.length > 0) {
+    productData.lastImage = imageFiles.lastImage[0].path.replace(
+      /^public[\\/]/,
+      '',
+    );
+  }
 
   const result = await productService.createProductService(productData);
 
@@ -60,8 +62,11 @@ const getAllProduct = catchAsync(async (req, res) => {
 });
 
 const getSingleProduct = catchAsync(async (req, res) => {
-    const {userId} = req.user;
-  const result = await productService.getSingleProductQuery(req.params.id, userId);
+  const { userId } = req.user;
+  const result = await productService.getSingleProductQuery(
+    req.params.id,
+    userId,
+  );
 
   sendResponse(res, {
     success: true,
@@ -82,56 +87,58 @@ const getAdminSingleProduct = catchAsync(async (req, res) => {
 });
 
 const updateSingleProduct = catchAsync(async (req, res) => {
-    const {id} = req.params;
-    const product = await Product.findById(id);
-    if(!product){
-      throw new AppError(400, 'Product not found !');
+  const { id } = req.params;
+  const product = await Product.findById(id);
+  if (!product) {
+    throw new AppError(400, 'Product not found !');
+  }
+  const updateData = req.body;
+  let remainingUrl = updateData?.remainingUrl || null;
+  const imageFiles = req.files as {
+    [fieldname: string]: Express.Multer.File[];
+  };
+  if (imageFiles?.images && imageFiles.images.length > 0) {
+    updateData.images = imageFiles.images.map((file) =>
+      file.path.replace(/^public[\\/]/, ''),
+    );
+  }
+  if (imageFiles?.coverImage && imageFiles.coverImage.length > 0) {
+    updateData.coverImage = imageFiles.coverImage[0].path.replace(
+      /^public[\\/]/,
+      '',
+    );
+  }
+  if (imageFiles?.lastImage && imageFiles.lastImage.length > 0) {
+    updateData.lastImage = imageFiles.lastImage[0].path.replace(
+      /^public[\\/]/,
+      '',
+    );
+  }
+  if (remainingUrl) {
+    if (!updateData.images) {
+      updateData.images = [];
     }
-    const updateData = req.body;
-      let remainingUrl = updateData?.remainingUrl || null;
-    const imageFiles = req.files as {
-      [fieldname: string]: Express.Multer.File[];
-    };
-    if (imageFiles?.images && imageFiles.images.length > 0) {
-      updateData.images = imageFiles.images.map((file) =>
-        file.path.replace(/^public[\\/]/, ''),
-      );
-    }
-      if (imageFiles?.coverImage && imageFiles.coverImage.length > 0) {
-        updateData.coverImage = imageFiles.coverImage[0].path.replace(
-          /^public[\\/]/,
-          '',
-        );
-      }
-     if (remainingUrl) {
-       if (!updateData.images) {
-         updateData.images = [];
-       }
-       updateData.images = [...updateData.images, remainingUrl];
-     }
+    updateData.images = [...updateData.images, remainingUrl];
+  }
 
-    if(updateData.images && !remainingUrl){
-      updateData.images = [...updateData.images];
+  if (updateData.images && !remainingUrl) {
+    updateData.images = [...updateData.images];
+  }
 
+  if (updateData.price) {
+    updateData.price = Number(updateData.price);
+  }
+  if (updateData.availableStock) {
+    updateData.availableStock = Number(updateData.availableStock);
+    const differentStock = Math.abs(
+      Number(product.availableStock) - Number(updateData.availableStock),
+    );
+    if (differentStock !== 0) {
+      updateData.stock = updateData.stock + differentStock;
     }
-    
-    if (updateData.price) {
-      updateData.price = Number(updateData.price);
-      
-    }
-    if (updateData.availableStock) {
-      updateData.availableStock = Number(updateData.availableStock);
-      const differentStock = Math.abs(
-        Number(product.availableStock) - Number(updateData.availableStock),
-      );
-      if (differentStock !== 0) {
-        updateData.stock = updateData.stock + differentStock;
-      }
-    }
+  }
 
-    console.log('updateData', updateData);
-
-     
+  console.log('updateData', updateData);
 
   const result = await productService.updateSingleProductQuery(id, updateData);
 
