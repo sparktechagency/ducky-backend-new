@@ -1,0 +1,58 @@
+
+
+services:
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.frontend
+    container_name: client
+    env_file:
+      - .env
+    volumes:
+      - shared-data:/shared
+    ports:
+      - "80:4173"
+    networks:
+      - server-net
+    # depends_on:
+    #   - mongo
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 512M 
+        reservations:
+          cpus: '0.50'
+          memory: 256M 
+
+  server:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: server
+    env_file:
+      - .env
+    volumes:
+      - shared-data:/shared
+    ports:
+      - "1111:${PORT}"
+    networks:
+      - server-net
+    # depends_on:
+    #   - mongo
+    deploy:
+      resources:
+        limits:
+          cpus: '2.5'
+          memory: 3584M 
+        reservations:
+          cpus: '0.25'
+          memory: 256M 
+
+
+networks:
+  server-net:
+
+volumes:
+  shared-data:
