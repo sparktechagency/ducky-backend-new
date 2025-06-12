@@ -12,7 +12,7 @@ services:
     volumes:
       - shared-data:/shared
     ports:
-      - "80:4173"
+      - "8080:4173"
     networks:
       - server-net
     # depends_on:
