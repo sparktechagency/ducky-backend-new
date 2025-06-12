@@ -5,6 +5,7 @@ import sendResponse from '../../utils/sendResponse';
 import Stripe from 'stripe';
 import AppError from '../../error/AppError';
 import config from '../../config';
+import { cancelTemplete, successTemplete } from '../../../templete/templete';
 // import { StripeAccount } from '../stripeAccount/stripeAccount.model';
 
 
@@ -161,11 +162,13 @@ const getAllIncomeRasioBydays = catchAsync(async (req, res) => {
 
 const successPage = catchAsync(async (req, res) => {
   // console.log('hit hoise');
-  res.render('success.ejs');
+  // res.render('success.ejs');
+  res.send(successTemplete);
 });
 
 const cancelPage = catchAsync(async (req, res) => {
-  res.render('cancel.ejs');
+  // res.render('cancel.ejs');
+  res.send(cancelTemplete);
 });
 
 // const successPageAccount = catchAsync(async (req, res) => {
