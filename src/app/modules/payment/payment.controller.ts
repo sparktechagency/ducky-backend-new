@@ -161,13 +161,10 @@ const getAllIncomeRasioBydays = catchAsync(async (req, res) => {
 //payment
 
 const successPage = catchAsync(async (req, res) => {
-  // console.log('hit hoise');
-  // res.render('success.ejs');
   res.send(successTemplete);
 });
 
 const cancelPage = catchAsync(async (req, res) => {
-  // res.render('cancel.ejs');
   res.send(cancelTemplete);
 });
 
