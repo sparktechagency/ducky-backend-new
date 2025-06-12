@@ -44,7 +44,7 @@ app.use(
 // application routes
 app.use('/api/v1', router);
 
-app.get('tst/', (req: Request, res: Response) => {
+app.get('/tst', (req: Request, res: Response) => {
   res.send('server is running');
 });
 app.use(globalErrorHandler);
