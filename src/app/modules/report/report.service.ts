@@ -17,7 +17,7 @@ const createReport = async (payload: TReport) => {
 };
 
 const getAllReportQuery = async (query: Record<string, unknown>) => {
-  const ReportQuery = new QueryBuilder(Report.find().populate('userId'), query)
+  const ReportQuery = new QueryBuilder(Report.find({}).populate('userId'), query)
 
     .search([])
     .filter()
@@ -26,6 +26,8 @@ const getAllReportQuery = async (query: Record<string, unknown>) => {
     .fields();
 
   const result = await ReportQuery.modelQuery;
+
+  console.log('result', result);
 
   const meta = await ReportQuery.countTotal();
   return { meta, result };

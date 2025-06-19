@@ -11,7 +11,7 @@ const faqSchema = new Schema<TReport>({
     type: String,
     required: true,
   }
-});
+},{timestamps:true});
 
 const Report = model<TReport>('Report', faqSchema);
 export default Report;

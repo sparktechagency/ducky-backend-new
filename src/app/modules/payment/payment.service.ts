@@ -452,8 +452,6 @@ const createCheckout = async (userId: any, payload: any) => {
   console.log('stripe payment', payload);
   let session = {} as { id: string };
 
-
-
   const lineItems = [
     {
       price_data: {

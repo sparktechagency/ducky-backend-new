@@ -158,7 +158,7 @@ const getAllIncomeRasioBydays = catchAsync(async (req, res) => {
   });
 });
 
-//payment
+
 
 const successPage = catchAsync(async (req, res) => {
   res.send(successTemplete);
