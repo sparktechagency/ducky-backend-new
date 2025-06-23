@@ -19,7 +19,8 @@ export const wearewuunderApiRequest = async (
       method: method.toUpperCase(),
       //  headers: getAuthHeader(),
       headers: {
-        Authorization: `Bearer ${config.shipment_key}`,
+        // Authorization: `Bearer ${config.shipment_key}`,
+        Authorization: `Bearer 7EyVLQIcx2Ul6PISQaTba0Mr96geTdP6`,
         'Content-Type': 'application/json',
       },
       data: method.toUpperCase() === 'GET' ? null : data,

@@ -397,9 +397,15 @@ const createShippingRequestService = async (id: any) => {
 };
 
 const getAllBookingShippingRequestQuery = async () => {
+  console.log('hit hoise')
 
   const allIds = await ShipmentRequestApi.find();
+  // console.log('allIds', allIds);
+  if (!Array.isArray(allIds) || allIds.length === 0) {
+    throw new AppError(400, 'ShipmentRequestApi not found or empty!');
+  }
   const ids = allIds.map((item) => item.shipmentRequestId);
+  // console.log('ids', ids);
 
   if (!ids || ids.length === 0) {
     throw new AppError(400, 'ShipmentRequestApi not found!');
@@ -412,8 +418,11 @@ const getAllBookingShippingRequestQuery = async () => {
     );
     return singleBooking.data;
   });
+  
+  
 
   const allBookingsRequest = await Promise.all(bookingPromises);
+  console.log('allBookingsRequest', allBookingsRequest);
 
   return allBookingsRequest;
 };
