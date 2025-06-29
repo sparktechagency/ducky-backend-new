@@ -2,6 +2,31 @@
 
 services:
 
+  mongo:
+    container_name: mongo
+    image: mongo
+    env_file:
+      - .env 
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_ADMINUSERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ADMINPASSWORD}
+      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+    volumes:
+      - shared-data:/shared
+    ports:
+      - "${MONGODB_PORT}:27017"
+    networks:
+      - server-net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'       # half CPU core
+          memory: 512M      # 512 MB RAM
+        reservations:
+          cpus: '0.25'      # minimum CPU reserved
+          memory: 256M      # minimum memory reserved
+
+
   frontend:
     build:
       context: .
@@ -15,8 +40,8 @@ services:
       - "8080:4173"
     networks:
       - server-net
-    # depends_on:
-    #   - mongo
+    depends_on:
+      - mongo
     deploy:
       resources:
         limits:
@@ -39,8 +64,8 @@ services:
       - "80:${PORT}"
     networks:
       - server-net
-    # depends_on:
-    #   - mongo
+    depends_on:
+      - mongo
     deploy:
       resources:
         limits:

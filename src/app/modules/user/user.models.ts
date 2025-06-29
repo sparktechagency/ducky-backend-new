@@ -8,7 +8,7 @@ const userSchema = new Schema<TUser>(
   {
     image: {
       type: String,
-      default: '/uploads/profile/default-user.jpg',
+      default: 'uploads/profile/default-user.jpg',
     },
     fullName: {
       type: String,
