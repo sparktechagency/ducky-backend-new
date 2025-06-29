@@ -13,6 +13,10 @@ const stripe = {
   stripe_api_key: process.env.STRIPE_API_KEY,
   stripe_api_secret: process.env.STRIPE_API_SECRET,
 };
+const super_admin ={
+  email: process.env.SUPER_ADMIN_EMAIL,
+  password: process.env.SUPER_ADMIN_PASSWORD,
+};
 
 export default {
   NODE_ENV: process.env.NODE_ENV,
@@ -42,5 +46,6 @@ export default {
   stripe,
   googleApiKey: process.env.GOOGLEAPI,
   shipment_key: process.env.SHIPMENT_KEY,
+  super_admin,
   // user_jwt_token: process.env.USER_JWT_TOKEN,
 };
