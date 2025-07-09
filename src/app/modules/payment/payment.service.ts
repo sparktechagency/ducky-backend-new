@@ -100,14 +100,14 @@ const addPaymentService = async (payload: any) => {
     newPayload.phone_number = payload.phone_number;
     newPayload.zip_code = payload.zip_code;
     newPayload.street_name = payload.street_name;
-    newPayload.state_code = payload.state_code;
+    // newPayload.state_code = payload.state_code;
     newPayload.locality = payload.locality;
     newPayload.house_number = payload.house_number;
     newPayload.given_name = payload.given_name;
     newPayload.family_name = payload.family_name;
     newPayload.country = payload.country;
-    newPayload.address2 = payload.address2;
-    newPayload.business = payload.business;
+    // newPayload.address2 = payload.address2;
+    // newPayload.business = payload.business;
 
 
     const totalAmount = productlist.reduce(

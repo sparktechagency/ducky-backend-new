@@ -33,10 +33,10 @@ const createShippingService = async (payload: any) => {
     throw new AppError(400, 'User is not found!');
   }
 
-  const pickupAddress = await PickupAddress.findOne({});
-  if (!pickupAddress) {
-    throw new AppError(400, 'Pickup Address is not found!');  
-  }
+  // const pickupAddress = await PickupAddress.findOne({});
+  // if (!pickupAddress) {
+  //   throw new AppError(400, 'Pickup Address is not found!');  
+  // }
   const heightAndWidthAndLength = await calculateShippingBox(order.productList);
 
   const productItems = await Promise.all(
@@ -68,21 +68,21 @@ const createShippingService = async (payload: any) => {
   console.log('heightAndWidth==', heightAndWidthAndLength);
 
   const shippingData = {
-    width: Math.ceil(heightAndWidthAndLength.avgWidth), 
+    width: Math.ceil(heightAndWidthAndLength.avgWidth),
     pickup_date: '2019-08-24T14:15:22Z', // ISO 8601 format, UTC
     pickup_address: {
-      zip_code: pickupAddress.zip_code,
-      street_name: pickupAddress.street_name,
-      state_code: pickupAddress.state_code,
-      phone_number: pickupAddress.phone_number,
-      locality: pickupAddress.locality,
-      house_number: pickupAddress.house_number,
-      given_name: pickupAddress.given_name,
-      family_name: pickupAddress.family_name,
-      email_address: pickupAddress.email_address,
-      country: pickupAddress.country,
-      business: pickupAddress.business,
-      address2: pickupAddress.address2,
+      zip_code: '6003 DD',
+      street_name: 'Marconilaan',
+      state_code: 'FL',
+      phone_number: '15479655248',
+      locality: 'Weert',
+      house_number: '8',
+      given_name: 'toon',
+      family_name: 'toon',
+      email_address: 'thegiftcompany@cs.com',
+      country: 'NL',
+      business: 'Example Business Ltd.',
+      address2: 'Appartment 4D',
     },
     order_lines: productItems,
     meta: {},
@@ -160,10 +160,10 @@ const createShippingRequestService = async (id: any) => {
     throw new AppError(400, 'User is not found!');
   }
 
-  const pickupAddress = await PickupAddress.findOne({});
-  if (!pickupAddress) {
-    throw new AppError(400, 'Pickup Address is not found!');
-  }
+  // const pickupAddress = await PickupAddress.findOne({});
+  // if (!pickupAddress) {
+  //   throw new AppError(400, 'Pickup Address is not found!');
+  // }
 
   // const singleBooking = await wearewuunderApiRequest(`bookings/${id}`, 'GET');
 
@@ -201,18 +201,18 @@ const createShippingRequestService = async (id: any) => {
       // pickup_date: '2019-08-24T14:15:22Z', // ISO 8601 format, UTC
       preferred_service_level: 'any:most_efficient',
       pickup_address: {
-        zip_code: pickupAddress.zip_code,
-        street_name: pickupAddress.street_name,
-        state_code: pickupAddress.state_code,
-        phone_number: pickupAddress.phone_number,
-        locality: pickupAddress.locality,
-        house_number: pickupAddress.house_number,
-        given_name: pickupAddress.given_name,
-        family_name: pickupAddress.family_name,
-        email_address: pickupAddress.email_address,
-        country: pickupAddress.country,
-        business: pickupAddress.business,
-        address2: pickupAddress.address2,
+        zip_code: '6003 DD',
+        street_name: 'Marconilaan',
+        state_code: 'FL',
+        phone_number: '15479655248',
+        locality: 'Weert',
+        house_number: '8',
+        given_name: 'toon',
+        family_name: 'toon',
+        email_address: 'thegiftcompany@cs.com',
+        country: 'NL',
+        business: 'Example Business Ltd.',
+        address2: 'Appartment 4D',
       },
       personal_message: 'A very personal message',
       // parcelshop_id: 'POST_NL:1234',
@@ -477,10 +477,10 @@ const createShippingRatesService = async (payload: any) => {
     }),
   );
 
-  const pickupAddress = await PickupAddress.findOne({});
-  if (!pickupAddress) {
-    throw new AppError(400, 'Pickup Address is not found!');
-  }
+  // const pickupAddress = await PickupAddress.findOne({});
+  // if (!pickupAddress) {
+  //   throw new AppError(400, 'Pickup Address is not found!');
+  // }
 
   const productList = await Promise.all(
     payload.cartIds.map(async (cartId: any) => {
