@@ -11,11 +11,11 @@ import PickupAddress from '../pickupAddress/pickupAddress.model';
 
 const createProductService = async (payload: TProduct) => {
 
-  const isPickupAddressExist = await PickupAddress.findOne({});
+  // const isPickupAddressExist = await PickupAddress.findOne({});
 
-  if (!isPickupAddressExist) {  
-    throw new AppError(400, 'Pickup Address is not Found!!');
-  }
+  // if (!isPickupAddressExist) {  
+  //   throw new AppError(400, 'Pickup Address is not Found!!');
+  // }
   
   const result = await Product.create(payload);
 

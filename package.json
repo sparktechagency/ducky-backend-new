@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "generate": "node generateFolder.ts",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/dev.server.ts",
     "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
     "lint:fix": "eslint . --fix",
     "start": "node ./dist/server.js",

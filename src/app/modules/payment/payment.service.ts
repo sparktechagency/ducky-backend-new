@@ -625,10 +625,10 @@ const automaticCompletePayment = async (event: Stripe.Event): Promise<void> => {
           throw new AppError(httpStatus.BAD_REQUEST, 'User not found');
         }
 
-         const pickupAddress = await PickupAddress.findOne({});
-          if (!pickupAddress) {
-            throw new AppError(400, 'Pickup Address is not found!');  
-          }
+        //  const pickupAddress = await PickupAddress.findOne({});
+        //   if (!pickupAddress) {
+        //     throw new AppError(400, 'Pickup Address is not found!');  
+        //   }
           const heightAndWidthAndLength = await calculateShippingBox(order.productList);
         
           const productItems = await Promise.all(
@@ -650,37 +650,46 @@ const automaticCompletePayment = async (event: Stripe.Event): Promise<void> => {
 
         
             const shipmentRequestData = {
-              width: 80 < Math.ceil(heightAndWidthAndLength.avgWidth) ? 80 : Math.ceil(heightAndWidthAndLength.avgWidth), 
+              width:
+                80 < Math.ceil(heightAndWidthAndLength.avgWidth)
+                  ? 80
+                  : Math.ceil(heightAndWidthAndLength.avgWidth),
               preferred_service_level: 'any:most_efficient',
               // preferred_service_level: 'post_nl:cheapest',
               pickup_address: {
-                zip_code: pickupAddress.zip_code,
-                street_name: pickupAddress.street_name,
-                state_code: pickupAddress.state_code,
-                phone_number: pickupAddress.phone_number,
-                locality: pickupAddress.locality,
-                house_number: pickupAddress.house_number,
-                given_name: pickupAddress.given_name,
-                family_name: pickupAddress.family_name,
-                email_address: pickupAddress.email_address,
-                country: pickupAddress.country,
-                business: pickupAddress.business,
-                address2: pickupAddress.address2,
+                zip_code: '6003 DD',
+                street_name: 'Marconilaan',
+                state_code: 'FL',
+                phone_number: '15479655248',
+                locality: 'Weert',
+                house_number: '8',
+                given_name: 'toon',
+                family_name: 'toon',
+                email_address: 'thegiftcompany@cs.com',
+                country: 'NL',
+                business: 'Example Business Ltd.',
+                address2: 'Appartment 4D',
               },
               personal_message: 'A very personal message',
               // parcelshop_id: 'POST_NL:1234',
               order_lines: productItems,
               meta: {},
-              length: 120 < Math.ceil(heightAndWidthAndLength.avgLength) ? 120 : Math.ceil(heightAndWidthAndLength.avgLength), // in centimeters
+              length:
+                120 < Math.ceil(heightAndWidthAndLength.avgLength)
+                  ? 120
+                  : Math.ceil(heightAndWidthAndLength.avgLength), // in centimeters
               kind: 'package',
               is_return: false,
-              height: 80 < Math.ceil(heightAndWidthAndLength.avgHeight) ? 80 : Math.ceil(heightAndWidthAndLength.avgHeight), // in centimeters
+              height:
+                80 < Math.ceil(heightAndWidthAndLength.avgHeight)
+                  ? 80
+                  : Math.ceil(heightAndWidthAndLength.avgHeight), // in centimeters
               drop_off: false,
               description: 'description',
               delivery_address: {
                 zip_code: order.zip_code,
                 street_name: order.street_name,
-                state_code: order.state_code,
+                // state_code: order.state_code,
                 phone_number: order.phone_number,
                 locality: order.locality,
                 house_number: order.house_number,
@@ -688,8 +697,8 @@ const automaticCompletePayment = async (event: Stripe.Event): Promise<void> => {
                 family_name: order.family_name,
                 email_address: user.email,
                 country: order.country,
-                business: order.business,
-                address2: order.address2,
+                // business: order.business,
+                // address2: order.address2,
               },
               delivery_instructions: 'delivery instructions',
               customer_reference: 'W202301',

@@ -23,14 +23,14 @@ export type TOrder = {
   phone_number: string;
   zip_code: string;
   street_name: string;
-  state_code: string;
+  // state_code: string;
   locality: string;
   house_number: string;
   given_name: string;
   family_name: string;
   country: string;
-  business: string;
-  address2: string;
+  // business: string;
+  // address2: string;
   error?: string;
   trackUrl?: string;
 
