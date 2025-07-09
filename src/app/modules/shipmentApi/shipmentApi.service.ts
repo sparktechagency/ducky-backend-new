@@ -605,6 +605,7 @@ const createShippingRatesService = async (payload: any) => {
 
     console.log('shipingRates==result', result);
   } catch (error: any) {
+    console.log('error', error);
     if (error.response.status === 422) {
       throw new AppError(403, 'Your Information is not Valid');
     }
