@@ -18,10 +18,10 @@ const io: SocketIOServer = new SocketIOServer(socketServer, {
 
 async function main() {
   try {
-    // await mongoose.connect(config.database_url as string);
-    await mongoose.connect(
-      `mongodb://${config.database_user_name}:${config.databse_user_password}@mongo:${config.database_port}/${config.database_name}?authSource=admin`,
-    );
+    await mongoose.connect(config.database_url as string);
+    // await mongoose.connect(
+    //   `mongodb://${config.database_user_name}:${config.databse_user_password}@mongo:${config.database_port}/${config.database_name}?authSource=admin`,
+    // );
 
     server = app.listen(Number(config.port), () => {
       console.log(
