@@ -8,12 +8,12 @@ import AppError from '../../error/AppError';
 const createProduct = catchAsync(async (req, res) => {
   console.log('hit hoise');
   const productData = req.body;
-  const isExist = await Product.findOne({
-    name: productData.name,
-  });
-  if (isExist) {
-    throw new AppError(400, 'Product already exist !');
-  }
+  // const isExist = await Product.findOne({
+  //   name: productData.name,
+  // });
+  // if (isExist) {
+  //   throw new AppError(400, 'Product already exist !');
+  // }
   productData.availableStock = productData.stock;
   const imageFiles = req.files as {
     [fieldname: string]: Express.Multer.File[];
