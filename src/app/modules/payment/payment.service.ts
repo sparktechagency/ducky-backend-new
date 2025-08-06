@@ -455,7 +455,7 @@ const createCheckout = async (userId: any, payload: any) => {
   const lineItems = [
     {
       price_data: {
-        currency: 'usd',
+        currency: 'eur',
         product_data: {
           name: 'Amount',
         },
