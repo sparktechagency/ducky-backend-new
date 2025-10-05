@@ -564,7 +564,6 @@ const createShippingRatesService = async (payload: any) => {
       // address2: 'Appartment 4D',
     },
 
-    // personal_message: 'A very personal message',
     // parcelshop_id: 'POST_NL:1234',
     order_lines: productItems,
     meta: {},
