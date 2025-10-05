@@ -560,8 +560,8 @@ const createShippingRatesService = async (payload: any) => {
       // eori_number: 'NL8559.62.100',
       email_address: 'info@examplebusiness.com',
       country: 'NL',
-      // business: 'Example Business Ltd.',
-      // address2: 'Appartment 4D',
+      business: 'Example Business Ltd.',
+      address2: 'Appartment 4D',
     },
 
     // parcelshop_id: 'POST_NL:1234',
