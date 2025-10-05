@@ -542,7 +542,7 @@ const createShippingRatesService = async (payload: any) => {
     pickup_address: {
       zip_code: '6003 DD',
       street_name: 'Marconilaan',
-      phone_number: '15479655248',
+      phone_number: '+3115479655248',
       locality: 'Weert',
       house_number: '8',
       given_name: 'toon',
@@ -598,6 +598,15 @@ const createShippingRatesService = async (payload: any) => {
       },
     );
     // console.log('resulet ======', result);
+
+    if (result?.data?.rates?.length === 0) {
+      console.log(
+        'No rates available. Check with support code:',
+        result.data.support_code,
+      );
+    } else {
+      console.log('Available shipping methods:', result.data.rates);
+    }
 
     console.log('shipingRates==result', result);
   } catch (error: any) {
