@@ -469,7 +469,7 @@ const createShippingRatesService = async (payload: any) => {
       }
 
       return {
-        weight: Number(product.weight),
+        weight: Number(product.weight) > 0 ? Number(product.weight) : 1,
         value: cartProduct.price,
         quantity: cartProduct.quantity,
         description: 'string',
