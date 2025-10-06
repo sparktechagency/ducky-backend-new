@@ -37,6 +37,13 @@ userRoutes
     ),
     userController.getMyProfile,
   )
+  .get(
+    '/order-data',
+    auth(
+      USER_ROLE.USER,
+    ),
+    userController.getOrderData,
+  )
   .get('/all-users', userController.getAllUsers)
   .get('/all-users-count', userController.getAllUserCount)
   .get('/all-users-rasio', userController.getAllUserRasio)

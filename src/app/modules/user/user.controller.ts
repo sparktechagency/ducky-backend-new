@@ -113,6 +113,17 @@ const getMyProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const getOrderData = catchAsync(async (req: Request, res: Response) => {
+  const result = await userService.getOrderData(req?.user?.userId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Order Data fetched successfully',
+    data: result,
+  });
+});
+
 const updateMyProfile = catchAsync(async (req: Request, res: Response) => {
   if (req?.file) {
     req.body.image = storeFile('profile', req?.file?.filename);
@@ -153,6 +164,7 @@ export const userController = {
   // userSwichRole,
   getUserById,
   getMyProfile,
+  getOrderData,
   updateMyProfile,
   blockedUser,
   deleteMyAccount,

@@ -18,6 +18,7 @@ import {
   postcodeValidator,
   postcodeValidatorExistsForCountry,
 } from 'postcode-validator';
+import OrderData from '../orderData/orderData.model';
 
 
 // const apiKey = '7EyVLQIcx2Ul6FISHTba0Mr96geTdP6';
@@ -428,7 +429,11 @@ const getAllBookingShippingRequestQuery = async () => {
 };
 
 
-const createShippingRatesService = async (payload: any) => {
+const createShippingRatesService = async (payload: any, userId: any) => {
+  const userExist = await User.findById(userId);
+  if (!userExist) {
+    throw new AppError(400, 'User not found!');
+  }
   const isValid = postcodeValidator(payload.zip_code, payload.country);
   // console.log('isValid================', isValid);
   // console.log('dsfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-1');
@@ -624,14 +629,28 @@ const createShippingRatesService = async (payload: any) => {
     );
     // console.log('resulet ======', result);
 
-    if (result?.data?.rates?.length === 0) {
-      console.log(
-        'No rates available. Check with support code:',
-        result.data.support_code,
-      );
-    } else {
-      console.log('Available shipping methods:', result.data.rates);
+    const data = {
+      userId: userId,
+      phone_number: payload.phone_number,
+      zip_code: payload.zip_code,
+      street_name: payload.street_name,
+      locality: payload.locality,
+      house_number: payload.house_number,
+      given_name: payload.given_name,
+      family_name: payload.family_name,
+      country: payload.country,
+
     }
+
+
+    const orderData = await OrderData.findOne({ userId: userId });
+    if (orderData) {
+      await OrderData.updateOne({ userId: userId }, data);
+    } else {
+      await OrderData.create(data);
+    }
+
+    
 
     console.log('shipingRates==result', result);
   } catch (error: any) {

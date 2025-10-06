@@ -15,6 +15,7 @@ import { createToken, verifyToken } from '../../utils/tokenManage';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import Otp from '../otp/otp.model';
+import OrderData from '../orderData/orderData.model';
 
 export type IFilter = {
   searchTerm?: string;
@@ -415,6 +416,16 @@ const getUserById = async (id: string) => {
   return result;
 };
 
+
+const getOrderData = async (id: string) => {
+const orderData = await OrderData.findOne({ userId: id });
+if(!orderData){
+  throw new AppError(httpStatus.NOT_FOUND, 'Order Data not found');
+}
+
+  return orderData;
+};
+
 const getUserByEmail = async (email: string) => {
   const result = await User.findOne({ email, isDeleted: false });
 
@@ -487,6 +498,7 @@ export const userService = {
   otpVerifyAndCreateUser,
   // userSwichRoleService,
   getUserById,
+  getOrderData,
   getUserByEmail,
   updateUser,
   deleteMyAccount,

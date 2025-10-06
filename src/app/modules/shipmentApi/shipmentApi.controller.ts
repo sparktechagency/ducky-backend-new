@@ -32,8 +32,12 @@ const createShippingRequest = catchAsync(async (req, res) => {
 
 
 const createShippingRates = catchAsync(async (req, res) => {
+  const { userId } = req.user;
   const shippingData = req.body;
-  const result = await shippingService.createShippingRatesService(shippingData);
+  const result = await shippingService.createShippingRatesService(
+    shippingData,
+    userId,
+  );
 
   // Send response
   sendResponse(res, {

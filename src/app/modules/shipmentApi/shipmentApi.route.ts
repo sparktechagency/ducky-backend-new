@@ -1,5 +1,7 @@
 import express from 'express';
 import { shippingController } from './shipmentApi.controller';
+import auth from '../../middleware/auth';
+import { USER_ROLE } from '../user/user.constants';
 
 const shippingRouter = express.Router();
 
@@ -18,7 +20,7 @@ shippingRouter
   )
   .post(
     '/rates',
-    // auth(USER_ROLE.USER),
+    auth(USER_ROLE.USER),
     // validateRequest(videoValidation.VideoSchema),
     shippingController.createShippingRates,
   )
